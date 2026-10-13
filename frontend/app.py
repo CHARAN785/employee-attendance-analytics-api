@@ -19,6 +19,125 @@ st.set_page_config(
 )
 
 
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+div[data-testid="stMarkdown"] h1 {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+    .stApp {
+        background: #f5f8fc;
+        color: #172033;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .block-container {
+        max-width: 1500px;
+        padding-top: 1.8rem;
+        padding-bottom: 3rem;
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #14233b, #1b3150);
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #f2f6fc;
+    }
+
+    [data-testid="stSidebar"] input {
+        color: #172033 !important;
+        background: white !important;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: 'Manrope', sans-serif !important;
+        color: #172033;
+        letter-spacing: -0.03em;
+    }
+
+    div[data-testid="stMetric"] {
+        background: white;
+        border: 1px solid #e5eaf1;
+        padding: 1rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 14px rgba(26, 43, 69, 0.04);
+    }
+
+    div[data-testid="stForm"] {
+        background: white;
+        border: 1px solid #e5eaf1;
+        padding: 1.2rem;
+        border-radius: 18px;
+    }
+
+    .stButton > button,
+    .stFormSubmitButton > button {
+        border-radius: 10px;
+        font-weight: 600;
+        min-height: 2.6rem;
+        border: 1px solid #d8e1eb;
+    }
+
+    .stButton > button[kind="primary"],
+    .stFormSubmitButton > button[kind="primary"] {
+        background: #0f9f91;
+        color: white;
+        border-color: #0f9f91;
+    }
+
+    
+div[data-testid="stTabs"] button[aria-selected="true"] {
+    color: #0f9f91 !important;
+    border-bottom: 3px solid #0f9f91 !important;
+    font-weight: 700 !important;
+}
+
+div[data-testid="stTabs"] button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
+}
+
+div[data-testid="stTabs"] button:hover {
+    color: #0f9f91 !important;
+}
+
+
+    div[data-baseweb="input"] input,
+    div[data-baseweb="select"] > div {
+        border-radius: 10px;
+    }
+
+    [data-testid="stDataFrame"] {
+        border: 1px solid #e5eaf1;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+[data-testid="stSidebar"] .stButton > button {
+    background: #0f9f91 !important;
+    color: white !important;
+    border: none !important;
+}
+
+[data-testid="stSidebar"] .stButton > button p {
+    color: white !important;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: #0b8278 !important;
+}
+
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 def api_request(
     method: str,
     path: str,
@@ -73,8 +192,31 @@ def show_records(items: Any) -> None:
         st.json(items)
 
 
-st.title("Employee Attendance & Analytics")
-st.caption("FastAPI + MongoDB attendance management")
+
+st.markdown(
+    """
+    <div style="
+        padding: 28px;
+        margin-bottom: 22px;
+        border-radius: 22px;
+        background: linear-gradient(120deg, #14233b, #214a67, #0f9f91);
+        box-shadow: 0 12px 32px rgba(20,35,59,.12);
+    overflow: hidden;">
+        <p style="color:#6fe0d0; font-size:12px;
+                  font-weight:700; letter-spacing:2px;">
+            PEOPLE OPERATIONS WORKSPACE
+        </p>
+ <h1 style="color:#ffffff !important; -webkit-text-fill-color:#ffffff !important; font-size:42px; font-weight:800; margin:18px 0;">
+    Employee Attendance &amp; Analytics
+</h1>
+        <p style="color:#d6e5ee;">
+            Manage your team, record attendance, and explore workforce insights.
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
 
 with st.sidebar:
     st.header("API connection")
