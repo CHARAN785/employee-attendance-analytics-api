@@ -37,38 +37,66 @@ db = client[os.getenv("MONGO_DB", "attendance_db")]
 logger = logging.getLogger(__name__)
 
 
+def _ensure_index(
+    collection: Any,
+    keys: list[tuple[str, int]],
+    *,
+    unique: bool = False,
+    name: str,
+) -> None:
+    key_spec = [(field, direction) for field, direction in keys]
+    for index in collection.index_information().values():
+        if index.get("key") == key_spec and (not unique or index.get("unique", False)):
+            return
+    collection.create_index(keys, unique=unique, name=name)
+
+
 def create_indexes() -> None:
-    db.employees.create_index(
-        [("emp_code", ASCENDING)], unique=True, name="uniq_employee_code"
+    _ensure_index(
+        db.employees,
+        [("emp_code", ASCENDING)],
+        unique=True,
+        name="uniq_employee_code",
     )
-    db.employees.create_index(
+    _ensure_index(
+        db.employees,
         [("department", ASCENDING), ("emp_code", ASCENDING)],
         name="department_employee_code",
     )
-    db.employees.create_index(
+    _ensure_index(
+        db.employees,
         [("department", ASCENDING), ("joined_on", ASCENDING)],
         name="department_joined_on",
     )
-    db.employees.create_index([("joined_on", ASCENDING)], name="joined_on")
+    _ensure_index(
+        db.employees,
+        [("joined_on", ASCENDING)],
+        name="joined_on",
+    )
 
-    db.attendance_logs.create_index(
+    _ensure_index(
+        db.attendance_logs,
         [("emp_code", ASCENDING), ("date", ASCENDING)],
         unique=True,
         name="uniq_employee_attendance_date",
     )
-    db.attendance_logs.create_index(
+    _ensure_index(
+        db.attendance_logs,
         [("date", DESCENDING), ("emp_code", ASCENDING)],
         name="attendance_date_employee",
     )
-    db.attendance_logs.create_index(
+    _ensure_index(
+        db.attendance_logs,
         [("status", ASCENDING), ("date", DESCENDING), ("emp_code", ASCENDING)],
         name="attendance_status_date_employee",
     )
-    db.attendance_logs.create_index(
+    _ensure_index(
+        db.attendance_logs,
         [("emp_code", ASCENDING), ("date", DESCENDING)],
         name="attendance_employee_date_desc",
     )
-    db.attendance_logs.create_index(
+    _ensure_index(
+        db.attendance_logs,
         [("emp_code", ASCENDING), ("punch_in", DESCENDING)],
         name="attendance_employee_punch_in",
     )
