@@ -1,33 +1,31 @@
-# Employee Attendance & Analytics API
+# Employee Attendance & Analytics
 
-FastAPI service backed by MongoDB for employee records, punch-in/out, audited attendance
-corrections, and monthly/department analytics. The API follows `openapi.yaml`; the attendance
-date and shift calculations use IST.
+This repository contains the FastAPI backend in `backend/` and a Streamlit frontend in
+`frontend/`. The root `app/main.py` exposes the assignment-required
+`uvicorn app.main:app` entry point.
 
-## Run locally
+## Start the API
 
 Requirements: Python 3.11+ and MongoDB 6.0+.
 
 ```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 $env:MONGO_URI = "mongodb://localhost:27017"
 $env:MONGO_DB = "attendance_db"
-python sample_seed.py
 uvicorn app.main:app --port 8000
 ```
 
-For MongoDB Atlas, set `MONGO_URI` to your connection string in the environment instead.
-Do not commit `.env` files or credentials. The app creates its indexes when it starts.
+API documentation is at `http://127.0.0.1:8000/docs`.
 
-Interactive API documentation is available at `http://localhost:8000/docs`.
+## Start the Streamlit frontend
 
-## Files
+In a second terminal:
 
-- `app/main.py` — API, MongoDB aggregation pipelines, and business-rule helpers.
-- `sample_data/` and `sample_seed.py` — sample records and a loader for a local database.
-- `REVIEW.md` — starter-code review and corrections.
-- `DECISIONS.md` — implementation and scaling decisions.
+```powershell
+pip install -r frontend/requirements.txt
+$env:API_BASE_URL = "http://127.0.0.1:8000"
+streamlit run frontend/app.py
+```
 
-The sample records illustrate document shapes only; they do not cover every contract edge case.
+See [backend/README.md](backend/README.md) and [frontend/README.md](frontend/README.md) for
+details. Do not commit `.env` files or database credentials.

@@ -1,6 +1,8 @@
 .env
 .env.*
+!.env.example
+backend/PROBLEM_STATEMENT.docx
 .venv/
-__pycache__/
+**/__pycache__/
 *.py[cod]
 .pytest_cache/
