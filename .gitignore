@@ -6,3 +6,5 @@ backend/PROBLEM_STATEMENT.docx
 **/__pycache__/
 *.py[cod]
 .pytest_cache/
+
+.env
